@@ -3,10 +3,14 @@ package com.p1.EmpManagement.Controller;
 import com.p1.EmpManagement.Entity.Employee;
 import com.p1.EmpManagement.Service.EMP_Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -61,9 +65,16 @@ public class Emp_Controller {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
+
     @GetMapping("/job/{job}")
     public ResponseEntity<List<Employee>> getbyjob(@PathVariable String job){
         List<Employee> employees = es.getbyjob(job);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+    @GetMapping("/jd/{joindate}")
+    public ResponseEntity<List<Employee>> getbyjoindate(@PathVariable LocalDate joindate){
+        List<Employee> employees = es.getbyjoindate(joindate);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
@@ -80,5 +91,6 @@ public class Emp_Controller {
         es.deletebyid(id);
         return ResponseEntity.noContent().build();
     }
+
 
 }

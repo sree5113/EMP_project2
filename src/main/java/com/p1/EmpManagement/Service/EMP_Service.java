@@ -4,7 +4,11 @@ import com.p1.EmpManagement.Entity.Employee;
 import com.p1.EmpManagement.Repo.Emp_Repo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @org.springframework.stereotype.Service
@@ -54,6 +58,11 @@ public class EMP_Service implements Service{
         return er.findbyjob(job);
     }
 
+    @Override
+    public List<Employee> getbyjoindate(LocalDate joindate) {
+        return er.findbyjoindate(joindate);
+    }
+
     @Transactional
     @Override
     public Employee updatebyid(Long id, Employee employee) {
@@ -66,10 +75,9 @@ public class EMP_Service implements Service{
             return er.save(emp);
     }
 
-
-
     @Override
     public void deletebyid(Long id) {
         er.deleteById(id);
     }
+
 }
